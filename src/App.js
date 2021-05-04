@@ -1,11 +1,12 @@
 import "./App.css";
-import SayHi from "./components/SayHi.js";
+import FetchChar from "./components/FetchChar.js";
+import SearchBar from "./components/SearchBar.js";
 
 function App() {
   return (
     <div className="App">
       <p>Welcome</p>
-      <SayHi />
+      <FetchChar />
     </div>
   );
 }

@@ -39,7 +39,7 @@
 .charImg{
   border-radius: 50%;
 }
-.flip-card {
+.flip-card, .flip-card.xlip {
   background-color: transparent;
   width: 300px;
   height: 300px;
@@ -58,9 +58,13 @@
   border-radius: 50%;
 }
 
-.flip-card:hover .flip-card-inner {
+/* .flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+} */
+.flip-card.xlip .flip-card-inner {
   transform: rotateY(180deg);
 }
+
 
 .flip-card-front, .flip-card-back {
   position: absolute;
@@ -71,7 +75,7 @@
 }
 
 .flip-card-front {
-  background-color: #bbb;
+  /* background-color: #bbb; */
   color: black;
 }
 

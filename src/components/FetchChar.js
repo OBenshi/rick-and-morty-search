@@ -11,6 +11,13 @@ function SayHi() {
       .then((response) => response.json())
       .then((data) => setCharacters(data.results));
   };
+  const [searchText, setSearchText] = useState("");
+  const handleSearchInputChange = (event) => {
+    setSearchText(event.target.value);
+  };
+  const filteredChar = characters.filter((character) => {
+    return character.name.toUpperCase().includes(searchText.toUpperCase());
+  });
   useEffect(() => {
     fetchApi();
   });
@@ -21,10 +28,17 @@ function SayHi() {
       flexDirection="row"
       flexWrap="wrap"
       justifyContent="center"
-      alignItems=""
-    >
+      alignItems="">
+      <div>
+        <label htmlFor="searchInput">Search: </label>
+        <input
+          id="searchInput"
+          type="text"
+          onChange={handleSearchInputChange}
+        />
+      </div>
       {characters.length !== 0 ? (
-        characters.map((character) => {
+        filteredChar.map((character) => {
           return <ShowCharc currentCharacter={character} />;
         })
       ) : (

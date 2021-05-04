@@ -1,0 +1,5 @@
+{
+    "prettier.jsxBracketSameLine": true,
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true
+}
