@@ -4,7 +4,10 @@ import React, { useState, useEffect } from "react";
 // import Box from "@material-ui/core/Box";
 import "../App.css";
 
-
+//  <Grid item xs={12} m={5} p={5}>
+//    <label htmlFor="searchInput">Search: </label>
+//    <input id="searchInput" type="text" onChange={handleSearchInputChange} />
+//  </Grid>;
 /* 
 const SearchBar = () => {
   const[searchText, setSearchText] = useState('');
