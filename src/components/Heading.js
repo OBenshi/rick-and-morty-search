@@ -6,7 +6,7 @@ function Heading({ text, arc, radius }) {
   const degree = arc / characters.length;
 
   return (
-    <h1>
+    <p>
       {characters.map((char, i) => (
         <span
           key={`heading-span-${i}`}
@@ -18,7 +18,7 @@ function Heading({ text, arc, radius }) {
           {char}
         </span>
       ))}
-    </h1>
+    </p>
   );
 }
 

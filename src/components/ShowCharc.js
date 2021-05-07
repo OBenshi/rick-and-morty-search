@@ -47,6 +47,8 @@ const useStyles = makeStyles({
     height: "300px",
     perspective: "1000px",
     borderRadius: "50%",
+    margin: "0px",
+    padding: "0px",
   },
 
   flipCardInner: {
@@ -70,7 +72,12 @@ const useStyles = makeStyles({
     "backface-visibility": "hidden",
   },
   flipCardBack: {
-    // backgroundColor: "#2980b9",
+    // background:
+    // "linear-gradient(45deg, #d977dc, #ff71b8, #ff7992, #ff8d72, #ffa55b, #feaa52, #fcb049, #f9b640, #f6a73d, #f2973c, #ed883b, #e7793c)",
+    // "radial-gradient(circle, #d977dc, #ff72b3, #ff8384, #ffa55b, #fbcb47)",
+    // "radial-gradient(circle, #d977dc, #f567b4, #ff6289, #fa6a61, #e7793c)",
+    // "radial-gradient(circle, #d977dc, #ff71b8, #ff7992, #ff8d72, #ffa55b, #feaa52, #fcb049, #f9b640, #f6a73d, #f2973c, #ed883b, #e7793c)",
+    // "radial-gradient(circle, #e7793c, #ed883b, #f2973c, #f6a73d, #f9b640, #fcb049, #feaa52, #ffa55b, #ff8d72, #ff7992, #ff71b8, #d977dc)",
     /* color: white; */
     position: "absolute",
     // textAlign: "center",
@@ -104,6 +111,9 @@ function ShowCharc(props) {
         container
         className={classes.flipCard}
         id={character.id}
+        m={0}
+        p={0}
+        spacing={0}
         onMouseEnter={() => {
           setIsHover(true);
         }}
