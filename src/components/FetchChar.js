@@ -17,19 +17,23 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import IconButton from "@material-ui/core/IconButton";
+
 import RnMLogo from "../Rick_and_Morty.svg";
 const useStyles = makeStyles((theme) => ({
   grow: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     background:
       "radial-gradient(circle, #d977dc, #ff71b8, #ff7992, #ff8d72, #ffa55b, #feaa52, #fcb049, #f9b640, #f6a73d, #f2973c, #ed883b, #e7793c)",
   },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
-      display: "block",
+      display: "flex",
     },
+    height: "4rem",
   },
   search: {
     position: "relative",
@@ -68,11 +72,14 @@ const useStyles = makeStyles((theme) => ({
       width: "20ch",
     },
   },
+  logi: {
+    alighSelf: "flex-end",
+  },
 }));
 
-function SayHi() {
+function SayHi(props) {
   const classes = useStyles();
-  const [characters, setCharacters] = useState([]);
+  const [Characters, setCharacters] = useState([]);
   const [nextFetch, setNextFetch] = useState("");
   const [backFetch, setBackFetch] = useState("");
   const [nxtEndpointUrl, setNextEndpointUrl] = useState(
@@ -88,11 +95,19 @@ function SayHi() {
         setCharacters(data.results);
       });
   };
-  const [searchText, setSearchText] = useState("");
 
-  const handleSearchInputChange = (event) => {
-    setSearchText(event.target.value);
+  const [searchText, setSearchText] = useState("");
+  const sendIt = (props, characters) => {
+    props.Charactersi(() => {
+      return characters;
+    });
   };
+  sendIt(props, Characters);
+
+  function handleSearchInputChange(event) {
+    setSearchText(event.target.value);
+    console.log(event.target.value);
+  }
 
   const handleApiPage = (nextOrBack) => {
     console.log(nextFetch);
@@ -103,50 +118,52 @@ function SayHi() {
     }
   };
 
-  const filteredChar = characters.filter((character) => {
+  const filteredChar = Characters.filter((character) => {
     return character.name.toUpperCase().includes(searchText.toUpperCase());
   });
+  console.log(Characters);
   useEffect(() => {
     fetchApi();
   }, [nxtEndpointUrl]);
-  return (
-    <Grid
-      container
-      justify="center"
-      alignItems="center"
-      direction="row"
-      className={classes.grow}
-      // spacing={1}
-    >
-      <AppBar position="fixed">
-        <Toolbar className={classes.grow}>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-              onChange={handleSearchInputChange}
-            />
-          </div>
-          <div>
-            <img className={classes.title} src={RnMLogo} alt="" />
-          </div>
 
-          {/* Material-UI
+  return (
+    <AppBar position="fixed">
+      <Toolbar className={classes.grow}>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ "aria-label": "search" }}
+            onChange={(event) => {
+              handleSearchInputChange(event);
+              props.handleSearch(() => filteredChar);
+            }}
+          />
+        </div>
+        <div>
+          <IconButton aria-label="" color="inherit">
+            <NotificationsIcon />
+          </IconButton>
+        </div>
+        <div className={classes.logi}>
+          <img className={classes.title} src={RnMLogo} alt="" />
+        </div>
+
+        {/* Material-UI
           </Typography> */}
-          {/* <Typography className={classes.title} variant="h6" noWrap>
+        {/* <Typography className={classes.title} variant="h6" noWrap>
             Material-UI
           </Typography> */}
-        </Toolbar>
-      </AppBar>
+      </Toolbar>
+    </AppBar>
 
-      {/* <Grid item xs={1}>
+    /* <Grid item xs={1}>
         {backFetch != null && (
           <Fab
             color="primary"
@@ -157,21 +174,21 @@ function SayHi() {
             <ArrowBackIosIcon />
           </Fab>
         )}
-      </Grid> */}
-      <Grid item xs={10}>
-        <Grid container justify="center" alignItems="center">
-          {characters.length !== 0 ? (
-            filteredChar.map((character) => {
-              return <ShowCharc currentCharacter={character} />;
-            })
-          ) : (
-            <Backdrop open={true}>
-              <CircularProgress color="inherit" />
-            </Backdrop>
-          )}
-        </Grid>
-      </Grid>
-      {/* <Grid item xs={1}>
+      </Grid> */
+    // <Grid item xs={10}>
+    //   <Grid container justify="center" alignItems="center">
+    // {characters.length !== 0 ? (
+    //   filteredChar.map((character) => {
+    //     return <ShowCharc currentCharacter={character} />;
+    //   })
+    // ) : (
+    // <Backdrop open={true}>
+    //   <CircularProgress color="inherit" />
+    // </Backdrop>
+    // )}
+    //   </Grid>
+    // </Grid>
+    /* <Grid item xs={1}>
         {nextFetch !== null && (
           <Fab
             color="primary"
@@ -182,8 +199,7 @@ function SayHi() {
             <ArrowForwardIosIcon />
           </Fab>
         )}
-      </Grid> */}
-    </Grid>
+      </Grid> */
   );
 }
 

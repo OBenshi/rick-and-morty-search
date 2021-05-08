@@ -1,4 +1,5 @@
 // import "./App.css";
+import React, { useState } from "react";
 import FetchChar from "./components/FetchChar.js";
 import SearchBar from "./components/SearchBar.js";
 import Fab from "@material-ui/core/Fab";
@@ -13,7 +14,10 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { Container } from "@material-ui/core";
 // import AppBari, { searchText } from "./components/AppBari.js";
 // import Heading from "./components/Heading.js"
-
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import ShowCharc from "./components/ShowCharc.js";
+import Grid from "@material-ui/core/Grid";
 const useStyles = makeStyles({
   root: {
     background:
@@ -37,15 +41,57 @@ const theme = createMuiTheme({
 
 function App() {
   const classes = useStyles();
-
+  const [Charactersi, setCharactersi] = useState([]);
+  const [filteredChar, setFilteredChar] = useState([]);
+  // console.log(Charactersi);
+  const bob = [5, 6, 7];
+  // console.log(filteredChar);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div className={classes.root}>
-        <FetchChar />
+      <div>
+        <FetchChar
+          Charactersi={(characters) => {
+            setCharactersi(characters);
+            // console.log(Charactersi);
+          }}
+          handleSearch={(filteredChar) => {
+            setFilteredChar(filteredChar);
+            console.log(filteredChar);
+          }}
+        />
+
+        <Grid container>
+          {filteredChar.length === 0 || filteredChar === []
+            ? Charactersi.map((character) => {
+                return <ShowCharc character={character} />;
+              })
+            : filteredChar.map((character) => {
+                return <ShowCharc character={character} />;
+              })}
+          {/* {Charactersi.map((character) => {
+            return <ShowCharc character={character} />;
+          })}
+          {filteredChar.map((character) => {
+            return <ShowCharc character={character} />;
+          })} */}
+          {/* {filteredChar === []
+            ? Charactersi.map((character) => {
+                // console.log(filteredChar);
+                return <ShowCharc character={character} />;
+              })
+            : filteredChar.map((character) => {
+                return <ShowCharc character={character} />;
+              })} */}
+        </Grid>
       </div>
     </ThemeProvider>
   );
 }
 
 export default App;
+// : (
+//           <Backdrop open={true}>
+//             <CircularProgress color="inherit" />
+//           </Backdrop>
+//         )
